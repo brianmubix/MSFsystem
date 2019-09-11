@@ -1,0 +1,15 @@
+
+#navbarNav a {
+    margin: 10px;
+    color:black; 
+    font-weight: bolder;
+    text-transform: uppercase;
+    transition: transform .2s;
+    text-align: center;
+
+}
+
+#navbarNav a:hover{
+    color:#0F9D58;
+    transform: scale(1.5);
+}
