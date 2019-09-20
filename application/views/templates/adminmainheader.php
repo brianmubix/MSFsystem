@@ -15,7 +15,7 @@
             </li>
             
             <li class="nav-item">
-                <a class="nav-link" href="<?= base_url(); ?>Admin">Owners</a>
+                <a class="nav-link" href="<?= base_url(); ?>Owners">Owners</a>
             </li>
             
             
@@ -26,16 +26,16 @@
             <li class="nav-item avatar dropdown">
                 <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-55" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false">
-                    <img src="<?= base_url(); ?>assets/images/Users/placeholder/profile-placeholder.jpg" class="rounded-circle z-depth-0"
+                    <img src="<?= base_url(); ?>assets/images/Users/<?= $this->session->userdata('adn_user_img'); ?>?v<?= $this->config->item('code_version'); ?>" class="rounded-circle z-depth-0"
                          alt="avatar">
-                    <b class="ml-2">Admin</b>
+                    <b class="ml-2"><?= $this->session->userdata('msf_admin'); ?></b>
                 </a>
                 <div class="dropdown-menu dropdown-menu-lg-right dropdown-success"
                      aria-labelledby="navbarDropdownMenuLink-55">
                     
-                    <a class="dropdown-item" href="<?= base_url(); ?>">My Profile</a>
-                    <a class="dropdown-item" href="<?= base_url(); ?>">Edit Profile</a>
-                    <a class="dropdown-item" href="<?= base_url(); ?>">Change Password</a>
+                    <a class="dropdown-item" href="<?= base_url(); ?>Admin/View">My Profile</a>
+                    <a class="dropdown-item" href="<?= base_url(); ?>Admin/Edit">Edit Profile</a>
+                    <a class="dropdown-item" href="<?= base_url(); ?>Admin/changePassword">Change Password</a>
                     <a class="dropdown-item" href="<?= base_url(); ?>Logout">Logout</a>
                 </div>
             </li>

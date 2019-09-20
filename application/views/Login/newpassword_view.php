@@ -22,7 +22,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <div class="card-body card-body-cascade wow fadeIn" data-wow-delay="0.2s" >
                             <p class="text-center">
                                 <a href="<?= base_url(); ?>" >
-                                    <img class="img-fluid border-secondary" style="max-height: 100px; " src="<?= base_url(); ?>assets/images/Logos/Logo.svg" />
+                                    <img class="img-fluid " style="max-height: 100px; " src="<?= base_url(); ?>assets/images/Logos/Logo.svg" />
                                 </a>
                             </p>
 
@@ -31,47 +31,42 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <div class="row justify-content-md-around">
                                 <div class="col-6 card p-4">
                                     <!-- Form -->
-                                    <form class="text-center" style="color: #757575;" id="logindetails">
+                                    <!-- Form -->
+                                    <form class="text-center" style="color: #757575;" id="newpassdetails" >
+                                        <input type="hidden" id="userid" name="userid" value="<?= $_GET['id']; ?>">
 
-                                        <h3 class="text-center green-text"><b>Motor Services Finder</b></h3>
+                                        <p class="m-3">Please enter your new password to reset</p>
 
-                                        <p class="card-text text-center">
-                                            Please enter credentials to login 
-                                        </p>
-                                        
-                                        <!-- Email -->
-                                        <div class="md-form">
-                                            <input type="text" id="emailusername" name="emailusername" class="form-control" required>
-                                            <label for="emailusername">Username / E-mail</label>
-                                        </div>
-
-                                        <!-- Password -->
+                                        <!-- New Password -->
                                         <div class="md-form">
                                             <input type="password" id="pass" name="pass" class="form-control" required>
-                                            <label for="pass">Password</label>
+                                            <label for="pass">New Password</label>
                                         </div>
 
-                                        <div class="d-flex justify-content-around">
-                                            <div>
-                                                <!-- Remember me -->
-                                                <div class="form-check">
-                                                    <input type="checkbox" class="form-check-input" id="materialLoginFormRemember">
-                                                    <label class="form-check-label" for="materialLoginFormRemember">Remember me</label>
-                                                </div>
-                                            </div>
-                                            <div>
-                                                <!-- Forgot password -->
-                                                <a href="<?= base_url() ?>Login/Recover">Forgot password?</a>
-                                            </div>
+                                        <!-- Confirm New Password -->
+                                        <div class="md-form">
+                                            <input type="password" id="pass2" name="pass2" class="form-control" required>
+                                            <label for="pass2"> Confirm New Password</label>
                                         </div>
+
+
 
                                         <!-- Error box -->
                                         <div id="error"></div>
 
                                         <!-- Sign in button -->
-                                        <button class="btn btn-success btn-rounded my-4 waves-effect z-depth-0" type="submit">Sign in</button>
+                                        <button class="btn btn-success btn-rounded  my-4 waves-effect z-depth-0" type="submit">Reset</button>
 
-                                        <hr />
+                                        <div class="d-flex justify-content-around">
+
+                                            <div>
+                                                <!-- Forgot password -->
+                                                Remembered Password
+                                                <a href="<?= base_url() ?>Login">Login</a>
+                                            </div>
+                                        </div>
+                                        <br />
+
                                         <!-- Social login -->
                                         <p>or sign in with:</p>
                                         <a href="<?= $this->config->item('facebook'); ?>" target="_blank" class="btn-floating btn-fb btn-sm">
@@ -86,6 +81,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 
                                     </form>
+                                    <!-- Form -->
                                     <!-- Form -->
                                 </div>
 
@@ -109,8 +105,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
         <!-- Default SCRIPTS -->
         <?php $this->load->view('templates/defaultfooterlinks'); ?>
-        
-        <script src="<?= base_url()?>assets/js/login.js?v<?= $this->config->item('code_version'); ?>"></script>
+
+        <script src="<?= base_url() ?>assets/js/login.js?v<?= $this->config->item('code_version'); ?>"></script>
 
     </body>
 </html>
