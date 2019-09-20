@@ -9,7 +9,7 @@ class ServiceData_model extends CI_Model {
 
     function return_all_servicesdetails() {
 
-        $query = $this->db->query("SELECT * FROM services ORDER BY  service_id DESC ");
+        $query = $this->db->query("SELECT * FROM services LEFT JOIN users ON ownerid=user_id  ORDER BY  service_id DESC ");
         return $query->result_array();
     }
 

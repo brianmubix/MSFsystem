@@ -55,11 +55,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 
                                 if($value['status'] == "pending"){
                                     $status = '<p class="text-primary"><b>Pending </b></p>'
-                                            . '<button class="btn btn-sm btn-success btn-rounded" onclick="approveuser(' . $value['user_id'] . ')" ><i class="fa fa-check"></i> Approve</buttonu>'
-                                            . '<button class="btn btn-sm btn-danger btn-rounded" onclick="rejectuser(' . $value['user_id'] . ')" ><i class="fa fa-times"></i> Reject</buttonu>';
+                                            . '<button class="btn btn-sm btn-success btn-rounded" onclick="approveuser(' . $value['user_id'] . ')" ><i class="fa fa-check"></i> Approve</button>'
+                                            . '<button class="btn btn-sm btn-danger btn-rounded" onclick="rejectuser(' . $value['user_id'] . ')" ><i class="fa fa-times"></i> Reject</button>';
                                 }else if($value['status'] == "rejected"){
                                     $status = '<p class="text-danger"><b>Rejected </b></p>'
-                                            . '<button class="btn btn-sm btn-success btn-rounded" onclick="approveuser(' . $value['user_id'] . ')" ><i class="fa fa-check"></i> Approve</buttonu>';
+                                            . '<button class="btn btn-sm btn-success btn-rounded" onclick="approveuser(' . $value['user_id'] . ')" ><i class="fa fa-check"></i> Approve</button>';
                                 } else {
                                     $status = '<p class="text-success"><b>Approved</b></p>';
                                 }
@@ -202,20 +202,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
         <!-- Default SCRIPTS -->
         <?php $this->load->view('templates/defaultfooterlinks'); ?>
-            <!-- MDBootstrap Datatables  -->
-            <script type="text/javascript" src="<?= base_url() ?>assets/MDB/js/addons/datatables.min.js"></script>
+        <!-- MDBootstrap Datatables  -->
+        <script type="text/javascript" src="<?= base_url() ?>assets/MDB/js/addons/datatables.min.js"></script>
 
-            <script src="<?= base_url() ?>assets/MDB/js/bootstrap.bundle.min.js"></script>
-            <script src="<?= base_url() ?>assets/MDB/js/bootstrap-select.min.js"></script>
+        <script src="<?= base_url() ?>assets/MDB/js/bootstrap.bundle.min.js"></script>
+        <script src="<?= base_url() ?>assets/MDB/js/bootstrap-select.min.js"></script>
 
-            <script src="<?= base_url() ?>assets/js/owners.js?v<?= $this->config->item('code_version'); ?>"></script>
+        <script src="<?= base_url() ?>assets/js/owners.js?v<?= $this->config->item('code_version'); ?>"></script>
 
-            <script>
-                $(document).ready(function () {
-                    $('#dtMembers').DataTable();
-                });
+        <script>
+            $(document).ready(function () {
+                $('#dtMembers').DataTable();
+            });
 
-            </script>
+        </script>
 
     </body>
 </html>

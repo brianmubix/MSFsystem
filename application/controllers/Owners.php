@@ -5,7 +5,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Owners extends CI_Controller {
 
     public function index() {
-
+        if (!isset($_SESSION['msf_admin_id'])) {
+            header("Location: " . base_url() . "Login");
+        }
 
         $this->load->model('UserData_model');
         $data['ownerssDetailsArray'] = $this->UserData_model->return_all_ownersdetails();

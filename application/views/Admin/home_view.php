@@ -75,10 +75,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
                         <div class="col-md-3 m-3">
                             <a href="<?= base_url(); ?>ServicesList?list=parking" >
-                                <div class="card card-primary border-primary zoom">
+                                <div class="card card-success border-success zoom">
                                     <div class="container-fluid">
                                         <div class="row flex-items-xs-middle">
-                                            <div class="col-md-4 bg-primary d-flex justify-content-center p-4" >
+                                            <div class="col-md-4 bg-success d-flex justify-content-center p-4" >
 
                                                 <h1 class="text-white text-center " > <i class="fas fa-parking"></i> </h1>
 
@@ -96,10 +96,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
                         <div class=" col-md-3 m-3">
                             <a href="<?= base_url(); ?>ServicesList?list=garage" >
-                                <div class="card card-info border-success zoom">
+                                <div class="card card-warning border-warning zoom">
                                     <div class="container-fluid">
                                         <div class="row flex-items-xs-middle">
-                                            <div class="col-md-4 bg-success d-flex justify-content-center p-4" >
+                                            <div class="col-md-4 bg-warning d-flex justify-content-center p-4" >
 
                                                 <h1 class="text-white text-center " > <i class="fas fa-tools"></i> </h1>
 
@@ -142,10 +142,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
                         <div class="col-md-3 m-3">
                             <a href="<?= base_url(); ?>ServicesList?list=recovery" >
-                                <div class="card card-primary border-primary zoom">
+                                <div class="card card-danger border-danger zoom">
                                     <div class="container-fluid">
                                         <div class="row flex-items-xs-middle">
-                                            <div class="col-md-4 bg-primary d-flex justify-content-center p-4" >
+                                            <div class="col-md-4 bg-danger d-flex justify-content-center p-4" >
 
                                                 <h1 class="text-white text-center " > <i class="fas fa-truck-loading"></i> </h1>
 
