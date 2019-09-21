@@ -10,7 +10,7 @@ class Owners extends CI_Controller {
         }
 
         $this->load->model('UserData_model');
-        $data['ownerssDetailsArray'] = $this->UserData_model->return_all_ownersdetails();
+        $data['ownersDetailsArray'] = $this->UserData_model->return_all_ownersdetails();
 
 
         $this->load->view('Owners/ownerslist_view', $data);
@@ -133,6 +133,11 @@ class Owners extends CI_Controller {
         
         $this->load->model('UserData_model');
         $data['ownerDetailsArray'] = $this->UserData_model->return_userdetails($userid);
+        
+        
+        $this->load->model('ServiceData_model');
+        $data['servicesDetailsArray'] = $this->ServiceData_model->return_serviceforuser($userid);
+
         
         $this->load->view('Owners/ownerview_view', $data);
     }

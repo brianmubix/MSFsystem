@@ -28,7 +28,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 padding: 15px 0 0 0;
             }
         </style>
-        
+
         <style>
             /* Always set the map height explicitly to define the size of the div
              * element that contains the map. */
@@ -53,7 +53,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
             <div class="row justify-content-center">
 
-                
+
                 <div class=" col-md-12 text-center ">
                     <h3 class="text-center green-text"><b>Registered Service Stations</b></h3>
 
@@ -61,45 +61,90 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
                     <div class="row justify-content-md-center">
                         <div class="btn-group text-center" style="overflow-x: auto;">
-                            <button type="button" class="btn blue-gradient btn-sm" onclick="requestslist('All')" ><i class="fa fa-list-ol"></i> All</button>
-                            <button type="button" class="btn btn-default btn-sm" onclick="requestslist('Pending')"><i class="fas fa-gas-pump"></i> Fuel</button>
-                            <button type="button" class="btn btn-primary btn-sm" onclick="requestslist('Accepted')"><i class="fas fa-car"></i> Car Wash</button>
-                            <button type="button" class="btn btn-success btn-sm" onclick="requestslist('All')" ><i class="fas fa-parking"></i> Parking</button>
-                            <button type="button" class="btn btn-warning btn-sm" onclick="requestslist('Pending')"><i class="fas fa-tools"></i> Garage</button>
-                            <button type="button" class="btn btn-secondary btn-sm" onclick="requestslist('Accepted')"><i class="fas fa-car-side"></i> Dealer</button>
-                            <button type="button" class="btn btn-danger btn-sm" onclick="requestslist('Rejected')"><i class="fas  fa-truck-loading"></i> Recovery</button>
+                            <button type="button" class="btn blue-gradient btn-sm" onclick="filterservice('All')" ><i class="fa fa-list-ol"></i> All</button>
+                            <button type="button" class="btn btn-default btn-sm" onclick="filterservice('Fuel Station')"><i class="fas fa-gas-pump"></i> Fuel</button>
+                            <button type="button" class="btn btn-primary btn-sm" onclick="filterservice('Car Wash')"><i class="fas fa-car"></i> Car Wash</button>
+                            <button type="button" class="btn btn-success btn-sm" onclick="filterservice('Car Park')" ><i class="fas fa-parking"></i> Parking</button>
+                            <button type="button" class="btn btn-warning btn-sm" onclick="filterservice('Garage Station')"><i class="fas fa-tools"></i> Garage</button>
+                            <button type="button" class="btn btn-secondary btn-sm" onclick="filterservice('Car Dealer')"><i class="fas fa-car-side"></i> Dealer</button>
+                            <button type="button" class="btn btn-danger btn-sm" onclick="filterservice('Recovery Station')"><i class="fas  fa-truck-loading"></i> Recovery</button>
                         </div>
                     </div>
-                    
-                    <p class="text-center mt-3"><b id="filterlabel">Showing All</b></p>
-                    
+
+                    <p class="text-center mt-3"></p>
+
                 </div>
-                
+
                 <div class=" col-md-7 ">
-                    <?php
-                    foreach ($servicesDetailsArray as $key => $value) {
-                        ?>
+                    <table class="table table-sm table-borderless" id="dtServices">
+                        <thead>
+                            <tr>
+                                <th>#</th><th align="center"><b id="filterlabel">Showing All</b></th>
+                            </tr>
+                        </thead>
+                        <tbody id="servicelist" >
+                            <?php
+                            $count = 0;
+                            foreach ($servicesDetailsArray as $key => $value) {
+                                $count++;
+                                
+                                if($value['category'] == "Fuel Station"){
+                                    $icon = '<i class="fas fa-gas-pump"></i>';
+                                    $color ='default';
+                                    
+                                }else if($value['category'] == "Car Wash"){
+                                    $icon = '<i class="fas fa-car"></i>';
+                                    $color ='primary';
+                                    
+                                }else if($value['category'] == "Car Park"){
+                                    $icon = '<i class="fas fa-parking"></i>';
+                                    $color ='success';
+                                    
+                                }else if($value['category'] == "Garage Station"){
+                                    $icon = '<i class="fas fa-tools"></i>';
+                                    $color ='warning';
+                                    
+                                }else if($value['category'] == "Car Dealer"){
+                                    $icon = '<i class="fas fa-car-side"></i>';
+                                    $color ='secondary';
+                                    
+                                }else if($value['category'] == "Recovery Station"){
+                                    $icon = '<i class="fas fa-truck-loading"></i>';
+                                    $color ='danger';
+                                    
+                                }
+                                
+                                ?>
+                            
+                                <tr>
+                                    <td><?= $count ?></td> 
+                                    <td>
 
-                        <div class="row row-striped ">
-                            <div class="col-2 bg-default">
-                                <h4 class="text-center"><br /></h4>
-                                <h1 class="text-white text-center " > <i class="fas fa-gas-pump"></i> </h1>
-                            </div>
-                            <div class="col-10">
-                                <h5 class="text-uppercase"><strong><?= $value['name']; ?></strong></h5>
-                                <ul class="list-inline">
-                                    <li class="list-inline-item"><i class="fas fa-list-ul"></i> Category: <?= $value['category']; ?></li>
-                                    <li class="list-inline-item"><i class="fas fa-map-marked-alt" ></i> <?= $value['location']; ?></li>
-                                </ul>
-                                <a href="#" class="btn btn-sm btn-default btn-rounded "  ><i class="fa fa-eye"></i> View</a>
-                                <a href="#" class="btn btn-sm btn-info btn-rounded "  ><i class="fa fa-edit"></i> Edit</a>
-                                <button class="btn btn-sm btn-danger btn-rounded float-right" onclick="deleteevent()" ><i class="fa fa-trash"></i> Delete</buttonu>
+                                        <div class="row row-striped pt-0">
+                                            <div class="col-2 bg-<?=$color; ?>">
+                                                
+                                                <h1 class="text-white text-center mt-3 mb-0" > <?=$icon; ?> </h1>
+                                                <p class="text-center text-white mt-0"><b><?= $value['category']; ?></b></p>
+                                            </div>
+                                            <div class="col-10">
+                                                <h5 class="text-uppercase"><strong><?= $value['name']; ?></strong></h5>
+                                                <ul class="list-inline">
+                                                    <li class="list-inline-item"><i class="fas fa-list-ul"></i> Category: <?= $value['category']; ?></li>
+                                                    <li class="list-inline-item"><i class="fas fa-map-marked-alt" ></i> <?= $value['location']; ?></li>
+                                                </ul>
+                                                <a href="<?= base_url();?>ServicesList/View/<?= $value['service_id'];?>" class="btn btn-sm btn-default btn-rounded "  ><i class="fa fa-eye"></i> View</a>
+                                                <a href="<?= base_url();?>ServicesList/Edit/<?= $value['service_id'];?>" class="btn btn-sm btn-info btn-rounded" ><i class="fa fa-edit"></i> Edit</a>
+                                                <button class="btn btn-sm btn-danger btn-rounded float-right" onclick="deleteservice(<?= $value['service_id'];?>)" ><i class="fa fa-trash"></i> Delete</buttonu>
 
-                            </div>
-                        </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
 
 
-                    <?php } ?>
+                            <?php } ?>
+                        </tbody>
+                    </table>
 
                 </div>
 
@@ -124,7 +169,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 
                         <!-- Form -->
-                        <form class="text-center" style="color: #757575;" id="newmemberdetails" action="#!">
+                        <form class="text-center" style="color: #757575;" id="newservicedetails" action="#!">
 
                             <!-- Station Owner -->
                             <div class="md-form mb-5">
@@ -132,7 +177,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <select class="selectpicker colorful-select dropdown-success form-control"  name="owner" id="owner" data-live-search="true" required>
 
                                     <option value="" selected> -- Select Station Owner --</option>
-                                    <option>Fuel</option>
+                                    <?php
+                                    foreach ($ownersDetailsArray as $key => $value1) {
+                                        echo '<option value="' . $value1['user_id'] . '" >' . $value1['firstname'] . ' ' . $value1['lastname'] . '</option>';
+                                    }
+                                    ?>
+
                                     <option>Car wash</option>
 
                                 </select>
@@ -144,8 +194,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <select class="selectpicker colorful-select dropdown-success form-control"  name="category" id="category" required>
 
                                     <option value="" selected> -- Select Category --</option>
-                                    <option>Fuel</option>
-                                    <option>Car wash</option>
+                                    <option>Fuel Station</option>
+                                    <option>Car Wash</option>
+                                    <option>Car Park</option>
+                                    <option>Garage Station</option>
+                                    <option>Car Dealer</option>
+                                    <option>Recovery Station</option>
 
                                 </select>
                             </div>
@@ -155,24 +209,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <input type="text" id="stationname" name="stationname" class="form-control" required>
                                 <label for="stationname">Station Name </label>
                             </div>
-                            
-                            <!-- Phone -->
-                            <div class="md-form">
-                                <input type="text" id="phone" name="phone" class="form-control" required>
-                                <label for="phone">Location </label>
-                            </div>
 
-                            
+
                             <!-- Select Loaction -->
                             <div class="md-form">
-                                <h4>Drag marker to your Chemist location<br/>
+                                <h4>Drag marker to your Station location<br/>
                                     <small><i>(Zoom in For accuracy)</i></small></h4>
-                                
+
                                 <div id="map"></div>
-
-
                             </div>
-                            
+
                             <div class="form-row">
                                 <div class="col">
                                     <!-- Latitude -->
@@ -188,7 +234,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 </div>
                             </div>
 
-                            
+
+                            <!-- Location Name -->
+                            <div class="md-form">
+                                <input type="text" id="location" name="location" class="form-control" required>
+                                <label for="location">Location Name </label>
+                            </div>
+
+                            <!-- Description  -->
+                            <div class="md-form">
+                                <textarea id="description" name="description" class="form-control md-textarea" required></textarea>
+                                <label for="description">Description </label>
+                            </div>
+
+
+
 
 
 
@@ -221,58 +281,58 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
         <script src="<?= base_url() ?>assets/MDB/js/bootstrap.bundle.min.js"></script>
         <script src="<?= base_url() ?>assets/MDB/js/bootstrap-select.min.js"></script>
-        
+
         <script>
-            function initMap() {
-                var lat = "-0.3976933438904146";
-                var long = "36.960871638024855";
+                                                function initMap() {
+                                                    var lat = "-0.3976933438904146";
+                                                    var long = "36.960871638024855";
 
-                function getLocation() {
-                    if (navigator.geolocation) {
-                        //is success
-                        navigator.geolocation.getCurrentPosition(showPosition);
-                    } else {
-                        //if failed
+                                                    function getLocation() {
+                                                        if (navigator.geolocation) {
+                                                            //is success
+                                                            navigator.geolocation.getCurrentPosition(showPosition);
+                                                        } else {
+                                                            //if failed
 
-                    }
-                }
+                                                        }
+                                                    }
 
-                function showPosition(position) {
-                    lat = position.coords.latitude;
-                    long = position.coords.longitude;
+                                                    function showPosition(position) {
+                                                        lat = position.coords.latitude;
+                                                        long = position.coords.longitude;
 
-                }
+                                                    }
 
-                getLocation();
-
-
-                var myLatlng = new google.maps.LatLng(lat, long);
-                var mapOptions = {
-                    zoom: 6,
-                    center: myLatlng
-                }
-                var map = new google.maps.Map(document.getElementById("map"), mapOptions);
-
-                // Place a draggable marker on the map
-                var marker = new google.maps.Marker({
-                    position: myLatlng,
-                    //icon: '<?= base_url() ?>assets/images/System/marker.png',
-                    map: map,
-                    draggable: true,
-                    animation: google.maps.Animation.DROP,
-                    title: "Drag me!"
-                });
-
-                google.maps.event.addListener(marker, 'dragend', function (marker) {
-                    var latLng = marker.latLng;
-                    currentLatitude = latLng.lat();
-                    currentLongitude = latLng.lng();
-                    $("#latitude").val(currentLatitude);
-                    $("#longitude").val(currentLongitude);
-                });
+                                                    getLocation();
 
 
-            }
+                                                    var myLatlng = new google.maps.LatLng(lat, long);
+                                                    var mapOptions = {
+                                                        zoom: 6,
+                                                        center: myLatlng
+                                                    }
+                                                    var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+
+                                                    // Place a draggable marker on the map
+                                                    var marker = new google.maps.Marker({
+                                                        position: myLatlng,
+                                                        icon: '<?= base_url() ?>assets/images/System/marker.png',
+                                                        map: map,
+                                                        draggable: true,
+                                                        animation: google.maps.Animation.DROP,
+                                                        title: "Drag me!"
+                                                    });
+
+                                                    google.maps.event.addListener(marker, 'dragend', function (marker) {
+                                                        var latLng = marker.latLng;
+                                                        currentLatitude = latLng.lat();
+                                                        currentLongitude = latLng.lng();
+                                                        $("#latitude").val(currentLatitude);
+                                                        $("#longitude").val(currentLongitude);
+                                                    });
+
+
+                                                }
 
 
         </script>
@@ -285,11 +345,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <script src="<?= base_url() ?>assets/js/services.js?v<?= $this->config->item('code_version'); ?>"></script>
 
         <script>
-                                $(document).ready(function () {
-                                    $('#dtMembers').DataTable();
-                                });
+            $(document).ready(function () {
+                $('#dtServices').DataTable();
+            });
 
         </script>
+
 
     </body>
 </html>

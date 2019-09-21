@@ -12,12 +12,40 @@ class ServiceData_model extends CI_Model {
         $query = $this->db->query("SELECT * FROM services LEFT JOIN users ON ownerid=user_id  ORDER BY  service_id DESC ");
         return $query->result_array();
     }
+    
+    function return_filtered_servicesdetails($category) {
+
+        $query = $this->db->query("SELECT * FROM services LEFT JOIN users ON ownerid=user_id WHERE category = '" . $category . "'  ORDER BY  service_id DESC ");
+        return $query->result_array();
+    }
 
     function return_servicedetails($serviceid) {
 
-        $query = $this->db->query("SELECT * FROM services  WHERE service_id = '" . $serviceid . "' ");
+        $query = $this->db->query("SELECT * FROM services LEFT JOIN users ON ownerid=user_id  WHERE service_id = '" . $serviceid . "' ");
         return $query->result_array();
     }
+    
+    function return_serviceforuser($userid) {
+        $query = $this->db->query(" SELECT * FROM services LEFT JOIN users ON ownerid=user_id WHERE user_id = '" . $userid . "' ORDER BY  service_id DESC  ");
+        return $query->result_array();
+    }
+    
+    function return_cardsdata() {
+        $query = $this->db->query("
+                SELECT *,
+                (SELECT COUNT(*) FROM services WHERE category='Fuel Station') AS 'Fuel Station',
+                (SELECT COUNT(*) FROM services WHERE category='Car Wash') AS 'Car Wash',
+                (SELECT COUNT(*) FROM services WHERE category='Car Park') AS 'Car Park',
+                (SELECT COUNT(*) FROM services WHERE category='Garage Station') AS 'Garage Station',
+                (SELECT COUNT(*) FROM services WHERE category='Car Dealer') AS 'Car Dealer',
+                (SELECT COUNT(*) FROM services WHERE category='Recovery Station') AS 'Recovery Station'
+                 FROM services
+                
+                 ");
+        return $query->result_array();
+    }
+    
+    
 
     function insert_service($data) {
         if ($this->db->insert('services', $data)) {

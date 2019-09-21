@@ -35,7 +35,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <?php  foreach ($adminDetailsArray as $key => $value) {} ?>
 
                                 <!-- Background color -->
-                                <div class="card-up green lighten-1"></div>
+                                <div class="card-up success-color lighten-1"></div>
 
                                 <!-- Avatar -->
                                 <div class="avatar mx-auto white">

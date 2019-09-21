@@ -8,7 +8,16 @@ class Admin extends CI_Controller {
         if (!isset($_SESSION['msf_admin_id'])) {
             header("Location: " . base_url() . "Login");
         }
-        $this->load->view('Admin/home_view');
+        
+        $this->load->model('ServiceData_model');
+        $data['servicesDetailsArray'] = $this->ServiceData_model->return_all_servicesdetails();
+        $data['cardsDataArray'] = $this->ServiceData_model->return_cardsdata();
+        
+        $this->load->model('UserData_model');
+        $data['ownersDetailsArray'] = $this->UserData_model->return_all_ownersdetails();
+
+        
+        $this->load->view('Admin/home_view', $data);
     }
 
     public function View() {

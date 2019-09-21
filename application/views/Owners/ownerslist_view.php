@@ -50,7 +50,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <tbody>
                             <?php
                             $count=0;
-                            foreach ($ownerssDetailsArray as $key => $value) {
+                            foreach ($ownersDetailsArray as $key => $value) {
                                 $count++;
                                 
                                 if($value['status'] == "pending"){

@@ -16,7 +16,7 @@ $BASE_URL= 'http://localhost/MSFsystem/';
 
 
 
-$config['code_version'] = '1.0.9';
+$config['code_version'] = '1.1.2';
 $config['system_title'] = 'MOTOR SERVICE FINDER';
  
 //social media
