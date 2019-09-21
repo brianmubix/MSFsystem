@@ -43,7 +43,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
                     <!--Title-->
                     <h3 class="text-center green-text"><b>Motor Services Finder Admin Portal</b></h3>
-                    <?php  foreach ($cardsDataArray as $key => $card) {}?>
+                    <?php
+                    foreach ($cardsDataArray as $key => $card) {
+                        
+                    }
+                    ?>
 
                     <div class="row justify-content-center">
 
@@ -59,7 +63,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             </div>
                                             <div class="col-8 justify-content-center">
                                                 <p class="card-text">Fueling Stations</p>
-                                                <h4 class="card-title"><?=$card['Fuel Station'];?></h4>
+                                                <h4 class="card-title"><?= $card['Fuel Station']; ?></h4>
 
                                             </div>
                                         </div>
@@ -81,7 +85,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             </div>
                                             <div class="col-8 justify-content-center">
                                                 <p class="card-text">Car Wash </p>
-                                                <h4 class="card-title"><?=$card['Car Wash'];?></h4>
+                                                <h4 class="card-title"><?= $card['Car Wash']; ?></h4>
                                             </div>
                                         </div>
 
@@ -102,7 +106,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             </div>
                                             <div class="col-8 justify-content-center">
                                                 <p class="card-text">Car Parking </p>
-                                                <h4 class="card-title"><?=$card['Car Park'];?></h4>
+                                                <h4 class="card-title"><?= $card['Car Park']; ?></h4>
                                             </div>
                                         </div>
 
@@ -123,7 +127,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             </div>
                                             <div class="col-8 justify-content-center">
                                                 <p class="card-text">Garage Stations</p>
-                                                <h4 class="card-title"><?=$card['Garage Station'];?></h4>
+                                                <h4 class="card-title"><?= $card['Garage Station']; ?></h4>
 
 
                                             </div>
@@ -146,7 +150,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             </div>
                                             <div class="col-8 justify-content-center">
                                                 <p class="card-text">Car Dealers</p>
-                                                <h4 class="card-title"><?=$card['Car Dealer'];?></h4>
+                                                <h4 class="card-title"><?= $card['Car Dealer']; ?></h4>
 
                                             </div>
                                         </div>
@@ -169,7 +173,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             </div>
                                             <div class="col-8 justify-content-center">
                                                 <p class="card-text">Recovery Station </p>
-                                                <h4 class="card-title"><?=$card['Recovery Station'];?></h4>
+                                                <h4 class="card-title"><?= $card['Recovery Station']; ?></h4>
                                             </div>
                                         </div>
 
@@ -196,70 +200,102 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 $count++;
 
                                 if ($count < 4) {
-                                 
-                                if ($value['category'] == "Fuel Station") {
-                                    $icon = '<i class="fas fa-gas-pump"></i>';
-                                    $color = 'default';
-                                } else if ($value['category'] == "Car Wash") {
-                                    $icon = '<i class="fas fa-car"></i>';
-                                    $color = 'primary';
-                                } else if ($value['category'] == "Car Park") {
-                                    $icon = '<i class="fas fa-parking"></i>';
-                                    $color = 'success';
-                                } else if ($value['category'] == "Garage Station") {
-                                    $icon = '<i class="fas fa-tools"></i>';
-                                    $color = 'warning';
-                                } else if ($value['category'] == "Car Dealer") {
-                                    $icon = '<i class="fas fa-car-side"></i>';
-                                    $color = 'secondary';
-                                } else if ($value['category'] == "Recovery Station") {
-                                    $icon = '<i class="fas fa-truck-loading"></i>';
-                                    $color = 'danger';
+
+                                    if ($value['category'] == "Fuel Station") {
+                                        $icon = '<i class="fas fa-gas-pump"></i>';
+                                        $color = 'default';
+                                    } else if ($value['category'] == "Car Wash") {
+                                        $icon = '<i class="fas fa-car"></i>';
+                                        $color = 'primary';
+                                    } else if ($value['category'] == "Car Park") {
+                                        $icon = '<i class="fas fa-parking"></i>';
+                                        $color = 'success';
+                                    } else if ($value['category'] == "Garage Station") {
+                                        $icon = '<i class="fas fa-tools"></i>';
+                                        $color = 'warning';
+                                    } else if ($value['category'] == "Car Dealer") {
+                                        $icon = '<i class="fas fa-car-side"></i>';
+                                        $color = 'secondary';
+                                    } else if ($value['category'] == "Recovery Station") {
+                                        $icon = '<i class="fas fa-truck-loading"></i>';
+                                        $color = 'danger';
+                                    }
+                                    ?>
+
+
+                                    <div class="row row-striped py-2">
+                                        <div class="col-2 bg-<?= $color; ?>">
+
+                                            <h1 class="text-white text-center mt-3 mb-0" > <?= $icon; ?> </h1>
+                                            <p class="text-center text-white mt-0"><b><?= $value['category']; ?></b></p>
+                                        </div>
+                                        <div class="col-10">
+                                            <h5 class="text-uppercase"><strong><?= $value['name']; ?></strong></h5>
+                                            <ul class="list-inline">
+                                                <li class="list-inline-item"><i class="fas fa-list-ul"></i> Category: <?= $value['category']; ?></li>
+                                                <li class="list-inline-item"><i class="fas fa-map-marked-alt" ></i> <?= $value['location']; ?></li>
+                                            </ul>
+                                            <a href="<?= base_url(); ?>ServicesList/View/<?= $value['service_id']; ?>" class="btn btn-sm btn-default btn-rounded "  ><i class="fa fa-eye"></i> View</a>
+                                            <a href="<?= base_url(); ?>ServicesList/Edit/<?= $value['service_id']; ?>" class="btn btn-sm btn-info btn-rounded" ><i class="fa fa-edit"></i> Edit</a>
+
+                                        </div>
+                                    </div>
+
+
+                                    <?php
                                 }
-                                ?>
-
-
-                                <div class="row row-striped py-2">
-                                    <div class="col-2 bg-<?= $color; ?>">
-
-                                        <h1 class="text-white text-center mt-3 mb-0" > <?= $icon; ?> </h1>
-                                        <p class="text-center text-white mt-0"><b><?= $value['category']; ?></b></p>
-                                    </div>
-                                    <div class="col-10">
-                                        <h5 class="text-uppercase"><strong><?= $value['name']; ?></strong></h5>
-                                        <ul class="list-inline">
-                                            <li class="list-inline-item"><i class="fas fa-list-ul"></i> Category: <?= $value['category']; ?></li>
-                                            <li class="list-inline-item"><i class="fas fa-map-marked-alt" ></i> <?= $value['location']; ?></li>
-                                        </ul>
-                                        <a href="<?= base_url(); ?>ServicesList/View/<?= $value['service_id']; ?>" class="btn btn-sm btn-default btn-rounded "  ><i class="fa fa-eye"></i> View</a>
-                                        <a href="<?= base_url(); ?>ServicesList/Edit/<?= $value['service_id']; ?>" class="btn btn-sm btn-info btn-rounded" ><i class="fa fa-edit"></i> Edit</a>
-                                        
-                                    </div>
-                                </div>
-
-
-                            <?php }} ?>
+                            }
+                            ?>
 
                             <p class="text-center">
                                 <a href="<?= base_url(); ?>ServicesList" class="btn btn-sm btn-success btn-lg btn-rounded m-3">View More <i class="fas fa-arrow-right"></i></a>
                             </p>
 
                         </div>
-                        
+
                         <div class=" col-md-5 p-4">
 
                             <h4 class="text-center green-text">Recently Registered Owners</h4>
                             <?php
+                            $count = 0;
+                            foreach ($ownersDetailsArray as $key => $value1) {
+                                $count++;
+                                if ($count < 4) {
+                                if($value1['status'] == "pending"){
+                                    $status = '<i class="text-primary fas fa-sync-alt"></i> Pending';
+                                    
+                                }else if($value1['status'] == "rejected"){
+                                    $status = '<i class="text-danger fa fa-times"></i> Rejected';
+                                } else {
+                                    $status = '<i class=" text-success fa fa-check"></i> Approved';
+                                }
+                                ?>
+                                <div class="row row-striped py-2">
+                                    
+                                    <div class="col-12">
+                                        <h5 class="text-uppercase"><strong><?= $value1['firstname']." ".$value1['lastname']; ?></strong></h5>
+                                        <ul class="list-inline">
+                                            <li class="list-inline-item"><?= $status; ?></li>
+                                            <li class="list-inline-item"><i class="fas fa-envelope"></i> <?= $value1['email']; ?></li>
+                                            <li class="list-inline-item"><i class="fas fa-phone" ></i> <?= $value1['phone']; ?></li>
+                                        </ul>
+                                        <a href="<?= base_url(); ?>Owners/View/<?= $value1['user_id']; ?>" class="btn btn-sm btn-default btn-rounded "  ><i class="fa fa-eye"></i> View</a>
+                                        <a href="<?= base_url(); ?>Owners/Edit/<?= $value1['user_id']; ?>" class="btn btn-sm btn-info btn-rounded" ><i class="fa fa-edit"></i> Edit</a>
+
+                                    </div>
+                                </div>
                             
-                            print_r($ownersDetailsArray);
+                                <?php }} ?>
                             
-                            ?>
-                            
-                            
+                            <p class="text-center">
+                                <a href="<?= base_url(); ?>Owners" class="btn btn-sm btn-success btn-lg btn-rounded m-3">View More <i class="fas fa-arrow-right"></i></a>
+                            </p>
+
+
                         </div>
 
-                        
-                        
+
+
                     </div>
 
 

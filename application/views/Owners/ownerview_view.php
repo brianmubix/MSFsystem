@@ -47,9 +47,22 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
                             <!-- Card -->
                             <div class="card testimonial-card">
-                                <?php foreach ($ownerDetailsArray as $key => $value) {
+                                <?php
+                                foreach ($ownerDetailsArray as $key => $value) {
                                     
-                                } ?>
+                                }
+
+                                if ($value['status'] == "pending") {
+                                    $status = '<p class="text-primary"><b>Pending </b>'
+                                            . '<button class="btn btn-sm btn-success btn-rounded" onclick="approveuser(' . $value['user_id'] . ')" ><i class="fa fa-check"></i> Approve</button>'
+                                            . '<button class="btn btn-sm btn-danger btn-rounded" onclick="rejectuser(' . $value['user_id'] . ')" ><i class="fa fa-times"></i> Reject</button></p>';
+                                } else if ($value['status'] == "rejected") {
+                                    $status = '<p class="text-danger"><b>Rejected </b>'
+                                            . '<button class="btn btn-sm btn-success btn-rounded" onclick="approveuser(' . $value['user_id'] . ')" ><i class="fa fa-check"></i> Approve</button></p>';
+                                } else {
+                                    $status = '<p class="text-success"><b>Approved</b></p>';
+                                }
+                                ?>
 
                                 <!-- Background color -->
                                 <div class="card-up success-color lighten-1"></div>
@@ -89,6 +102,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             <tr>
                                                 <td><b>Phone</b></td><td><?= $value['phone'] ?></td>
                                             </tr>
+                                            <tr>
+                                                <td><b>Status</b></td><td><?= $status; ?></td>
+                                            </tr>
+                                            
 
 
                                         </tbody>
@@ -159,11 +176,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </div>
 
 
-                    <?php
+                        <?php
                     }
-                    
+
                     if ($count == 0) {
-                      echo '<div class="row row-striped py-2"> <div class="col-10"><p class="text-center"> <b> No Station under this account </b> </p></div> </div>';  
+                        echo '<div class="row row-striped py-2"> <div class="col-10"><p class="text-center"> <b> No Station under this account </b> </p></div> </div>';
                     }
                     ?>
 
@@ -176,7 +193,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 
             <!-- Default SCRIPTS -->
-<?php $this->load->view('templates/defaultfooterlinks'); ?>
+            <?php $this->load->view('templates/defaultfooterlinks'); ?>
+            
+            <script src="<?= base_url() ?>assets/js/owners.js?v<?= $this->config->item('code_version'); ?>"></script>
+
 
     </body>
 </html>
