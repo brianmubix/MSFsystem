@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 20, 2019 at 07:42 AM
+-- Generation Time: Sep 21, 2019 at 10:39 PM
 -- Server version: 10.1.34-MariaDB
 -- PHP Version: 7.2.8
 
@@ -32,11 +32,11 @@ CREATE TABLE `services` (
   `service_id` int(11) NOT NULL,
   `ownerid` int(11) NOT NULL,
   `name` varchar(200) NOT NULL,
-  `category` varchar(100) NOT NULL,
+  `category` enum('Fuel Station','Car Wash','Car Park','Garage Station','Car Dealer','Recovery Station') NOT NULL,
   `description` text NOT NULL,
   `location` varchar(200) NOT NULL,
-  `latitude` int(11) NOT NULL,
-  `longtude` int(11) NOT NULL,
+  `latitude` decimal(10,5) NOT NULL,
+  `longtude` decimal(10,5) NOT NULL,
   `servicestatus` enum('pending','approved','rejected') NOT NULL DEFAULT 'pending',
   `createdat` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -46,8 +46,11 @@ CREATE TABLE `services` (
 --
 
 INSERT INTO `services` (`service_id`, `ownerid`, `name`, `category`, `description`, `location`, `latitude`, `longtude`, `servicestatus`, `createdat`) VALUES
-(1, 7, 'Total Petrol Station', 'Fuel', 'this is a petrol station', ' Opposite barden porwel', 0, -12, 'pending', '2019-09-20 05:54:50'),
-(2, 7, 'Shell Petrol Station', 'Fuel', 'this is a petrol station', ' Next To Police station', 0, -12, 'pending', '2019-09-20 05:54:50');
+(1, 7, 'Total Petrol Station', 'Fuel Station', 'this is a petrol station', ' Opposite barden porwel', '0.00000', '-12.00000', 'pending', '2019-09-20 05:54:50'),
+(3, 6, 'lake Car Dealers', 'Car Dealer', 'sells premium petrol', 'Opposite Naivas', '-0.06592', '37.02197', 'pending', '2019-09-21 08:56:40'),
+(4, 7, 'naivas car Wash', 'Car Wash', 'secure  spacious place', 'near neaivas market', '0.00000', '37.00000', 'pending', '2019-09-21 09:01:12'),
+(8, 6, 'Rest Garage', 'Garage Station', 'relax as we repair your car', 'Near chania bridge', '-0.52952', '37.35638', 'pending', '2019-09-21 13:17:25'),
+(9, 6, 'motorhub Kiambuu', 'Car Dealer', 'desagu will get you a new car', 'kiambu RD', '-0.39769', '36.96087', 'pending', '2019-09-21 13:18:54');
 
 -- --------------------------------------------------------
 
@@ -80,8 +83,7 @@ INSERT INTO `users` (`user_id`, `firstname`, `lastname`, `gender`, `username`, `
 (6, 'sally', 'mubix', 'Female', 'sally', 'd', 'sally@gmail.com', '0700866545', NULL, 'owner', 'approved', '2019-09-13 08:57:29', '2019-09-13 08:57:29'),
 (7, 'Brian', 'Mubix', 'Male', 'brian', 'm', 'brianmubix@gmail.com1', '0700866545', NULL, 'owner', 'approved', '2019-09-13 12:29:05', '2019-09-13 12:29:05'),
 (8, 'hg', 'hg', 'Male', 'hj', 'h', 'tyg@hjbjh.jk', '67890', NULL, 'owner', 'pending', '2019-09-20 05:05:35', '2019-09-20 05:05:35'),
-(9, '1', '2', 'Male', '3', '6', 'brianmubix@gmail.com4', '5', NULL, 'owner', 'pending', '2019-09-20 05:06:54', '2019-09-20 05:06:54'),
-(10, 'jhj', 'hj', 'Male', 'hh', 'n', 'brianmubix@gmail.com', '0700866545', NULL, 'owner', 'pending', '2019-09-20 05:12:35', '2019-09-20 05:12:35');
+(9, '1', '2', 'Male', '3', '6', 'brianmubix@gmail.com4', '5', NULL, 'owner', 'pending', '2019-09-20 05:06:54', '2019-09-20 05:06:54');
 
 --
 -- Indexes for dumped tables
@@ -110,7 +112,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `services`
 --
 ALTER TABLE `services`
-  MODIFY `service_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `service_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `users`

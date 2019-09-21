@@ -68,7 +68,7 @@ class Admin extends CI_Controller {
             if ($this->UserData_model->update_user($userid, $data1)) {
 
                 //update avatar
-                $this->session->set_userdata('adn_user_img', $imgname . '.' . $extension);
+                $this->session->set_userdata('msf_user_img', $imgname . '.' . $extension);
 
                 //delete old image from server
                 if ($oldimg == "") {
@@ -98,7 +98,7 @@ class Admin extends CI_Controller {
             echo json_encode($response);
 
             //update username session
-            $this->session->set_userdata('adn_user', $username);
+            $this->session->set_userdata('msf_admin', $username);
             die();
         } else {
 

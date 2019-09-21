@@ -45,7 +45,7 @@ function filterservice(category) {
         type: "POST", // Type of request to be send, called as method
         data: data, // Data sent to server, a set of key/value pairs (i.e. form fields and values)
         beforeSend: function () {
-            $("#servicelist").html('<center><img src="' + baseurl + 'assets/images/preloader/preloader.svg" /> &nbsp; loading...<br/>Please wait!!</center>');
+            $("#servicelist").html('<tr><td></td><td><img src="' + baseurl + 'assets/images/preloader/preloader.svg" /> &nbsp; loading...Please wait!!</center></td></tr>');
         },
         success: function (data)   // A function to be called if request succeeds.
         {
