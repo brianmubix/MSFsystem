@@ -35,8 +35,8 @@ class Androidapp extends CI_Controller {
         $pass = $this->input->post('pass');
         $pass2 = $this->input->post('pass2');
 
-        
-        
+
+
         $response['success'] = '0';
 
         //if username is empty
@@ -47,8 +47,8 @@ class Androidapp extends CI_Controller {
             echo json_encode($response);
             die();
         }
-        
-        
+
+
 
         //check if username exists
         $this->load->model("Androidapp_model");
@@ -119,7 +119,7 @@ class Androidapp extends CI_Controller {
         $data['password'] = $pass;
         $data['email'] = $email;
         $data['phone'] = $phone;
-        
+
         $this->load->model("Androidapp_model");
         if ($this->Androidapp_model->insert_user($data)) {
 
@@ -137,7 +137,7 @@ class Androidapp extends CI_Controller {
 
             $messagebody = ' 
                 </p> Hi ' . $username . " , <br/>
-                Thanks for joining ".$this->config->item('system_title').".
+                Thanks for joining " . $this->config->item('system_title') . ".
                 Your registration was successiful:<br/>
                 
                 <br/><u>Login Details</u>
@@ -155,8 +155,6 @@ class Androidapp extends CI_Controller {
             if ($this->Email_model->send_email($mailto, $subject, $messagetitle, $messagebody)) {
                 
             }
-
-            
         } else {
 
             $response['success'] = '0';
@@ -164,8 +162,33 @@ class Androidapp extends CI_Controller {
             echo json_encode($response);
             die();
         }
+    }
+
+    public function AllServices() {
         
+        $this->load->model("Androidapp_model");
+        $allservices = $this->Androidapp_model->return_all_servicesdetails();
+
+        echo json_encode($allservices);
+        die();
+    }
+    
+    public function userServices($userid) {
         
+        $this->load->model("Androidapp_model");
+        $userservices = $this->Androidapp_model->return_serviceforuser($userid);
+
+        echo json_encode($userservices);
+        die();
+    }
+    
+    public function categoryServices($category) {
+        
+        $this->load->model("Androidapp_model");
+        $userservices = $this->Androidapp_model->return_filtered_servicesdetails($category);
+
+        echo json_encode($userservices);
+        die();
     }
 
 }
