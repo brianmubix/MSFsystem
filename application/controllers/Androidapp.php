@@ -182,13 +182,62 @@ class Androidapp extends CI_Controller {
         die();
     }
     
-    public function categoryServices($category) {
+    public function categoryServices() {
+        
+        $category = $this->input->post('category');
         
         $this->load->model("Androidapp_model");
         $userservices = $this->Androidapp_model->return_filtered_servicesdetails($category);
 
         echo json_encode($userservices);
         die();
+    }
+    
+    public function NewService() {
+        $owner = $this->input->post('owner');
+        $category = $this->input->post('category');
+        $stationname = $this->input->post('stationname');
+        $latitude = $this->input->post('latitude');
+        $longitude = $this->input->post('longitude');
+        $location = $this->input->post('location');
+        $description = $this->input->post('description');
+
+
+        //check if service name exists
+        $this->load->model("ServiceData_model");
+        if ($this->ServiceData_model->servicename_exists($stationname)) {
+
+            $response['success'] = '0';
+            $response['message'] = "Sorry!! That Station Name is already taken";
+            echo json_encode($response);
+            die();
+        } else {
+
+
+            //array to insert into services 
+            $data['ownerid'] = $owner;
+            $data['name'] = $stationname;
+            $data['category'] = $category;
+            $data['description'] = $description;
+            $data['location'] = $location;
+            $data['latitude'] = $latitude;
+            $data['longtude'] = $longitude;
+
+            $this->load->model("ServiceData_model");
+            if ($this->ServiceData_model->insert_service($data)) {
+
+                $response['success'] = '1';
+                $response['message'] = "Saved Successifuly";
+                echo json_encode($response);
+                die();
+            } else {
+
+                $response['success'] = '0';
+                $response['message'] = "Sorry!! failed to save please try again";
+                echo json_encode($response);
+                die();
+            }
+        }
     }
 
 }
