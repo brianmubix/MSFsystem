@@ -165,34 +165,34 @@ class Androidapp extends CI_Controller {
     }
 
     public function AllServices() {
-        
+
         $this->load->model("Androidapp_model");
         $allservices = $this->Androidapp_model->return_all_servicesdetails();
 
         echo json_encode($allservices);
         die();
     }
-    
+
     public function userServices($userid) {
-        
+
         $this->load->model("Androidapp_model");
         $userservices = $this->Androidapp_model->return_serviceforuser($userid);
 
         echo json_encode($userservices);
         die();
     }
-    
+
     public function categoryServices() {
-        
+
         $category = $this->input->post('category');
-        
+
         $this->load->model("Androidapp_model");
         $userservices = $this->Androidapp_model->return_filtered_servicesdetails($category);
 
         echo json_encode($userservices);
         die();
     }
-    
+
     public function NewService() {
         $owner = $this->input->post('owner');
         $category = $this->input->post('category');
@@ -238,6 +238,22 @@ class Androidapp extends CI_Controller {
                 die();
             }
         }
+    }
+
+    public function getServicedata() {
+        
+        $serviceId = $this->input->post('id');
+        
+        $this->load->model("Androidapp_model");
+        $servicedata = $this->Androidapp_model->return_servicedata($serviceId);
+        $serviceOffers = $this->Androidapp_model->return_serviceoffers($serviceId);
+        $serviceRating = $this->Androidapp_model->return_serviceRating($serviceId);
+
+        $response['servicedata'] = $servicedata;
+        $response['serviceOffers'] = $serviceOffers;
+        $response['serviceRating'] = $serviceRating;
+        echo json_encode($response);
+        die();
     }
 
 }

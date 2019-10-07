@@ -97,5 +97,21 @@ class Androidapp_model extends CI_Model {
         return $query->result_array();
     }
     
+    function return_servicedata($serviceId){
+        $query = $this->db->query(" SELECT * FROM services WHERE service_id = '".$serviceId."' ");
+        return $query->result_array();
+    }
+    
+    function return_serviceoffers($serviceId){
+        $query = $this->db->query(" SELECT * FROM offers WHERE service_id = '".$serviceId."' ");
+        return $query->result_array();
+    }
+    
+    function return_serviceRating($serviceId){
+        $query = $this->db->query(" SELECT  ROUND (AVG(score),1)as avgscore, COUNT(*) as totalcount FROM ratings WHERE service_id = '".$serviceId."' ");
+        return $query->result_array();
+    }
+    
+    
     
 }
