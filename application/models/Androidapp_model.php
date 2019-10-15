@@ -102,6 +102,13 @@ class Androidapp_model extends CI_Model {
         return $query->result_array();
     }
     
+    function insert_offer($data) {
+        if ($this->db->insert('offers', $data)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
     function return_serviceoffers($serviceId){
         $query = $this->db->query(" SELECT * FROM offers WHERE service_id = '".$serviceId."' ");
         return $query->result_array();

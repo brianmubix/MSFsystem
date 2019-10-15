@@ -255,5 +255,32 @@ class Androidapp extends CI_Controller {
         echo json_encode($response);
         die();
     }
+    
+    public function NewOffer() {
+
+        $data['service_id'] = $this->input->post('serviceid');
+        $data['name'] = $this->input->post('name');
+        $data['price'] = $this->input->post('price');
+        
+        $this->load->model("Androidapp_model");
+            if ($this->Androidapp_model->insert_offer($data)) {
+
+                $response['success'] = '1';
+                $response['message'] = "Saved Successifuly";
+                echo json_encode($response);
+                die();
+            } else {
+
+                $response['success'] = '0';
+                $response['message'] = "Sorry!! failed to save please try again";
+                echo json_encode($response);
+                die();
+            }
+        
+        
+        
+        
+    }
+    
 
 }
