@@ -241,9 +241,9 @@ class Androidapp extends CI_Controller {
     }
 
     public function getServicedata() {
-        
+
         $serviceId = $this->input->post('id');
-        
+
         $this->load->model("Androidapp_model");
         $servicedata = $this->Androidapp_model->return_servicedata($serviceId);
         $serviceOffers = $this->Androidapp_model->return_serviceoffers($serviceId);
@@ -255,32 +255,47 @@ class Androidapp extends CI_Controller {
         echo json_encode($response);
         die();
     }
-    
+
     public function NewOffer() {
 
         $data['service_id'] = $this->input->post('serviceid');
         $data['name'] = $this->input->post('name');
         $data['price'] = $this->input->post('price');
-        
+
         $this->load->model("Androidapp_model");
-            if ($this->Androidapp_model->insert_offer($data)) {
+        if ($this->Androidapp_model->insert_offer($data)) {
 
-                $response['success'] = '1';
-                $response['message'] = "Saved Successifuly";
-                echo json_encode($response);
-                die();
-            } else {
+            $response['success'] = '1';
+            $response['message'] = "Saved Successifuly";
+            echo json_encode($response);
+            die();
+        } else {
 
-                $response['success'] = '0';
-                $response['message'] = "Sorry!! failed to save please try again";
-                echo json_encode($response);
-                die();
-            }
-        
-        
-        
-        
+            $response['success'] = '0';
+            $response['message'] = "Sorry!! failed to save please try again";
+            echo json_encode($response);
+            die();
+        }
     }
-    
+
+    public function DeleteOffer() {
+        $offerid = $this->input->post('offerid');
+
+        //delete from db
+        $this->db->where('offer_id', $offerid);
+        if ($this->db->delete('offers')) {
+
+            $response['success'] = '1';
+            $response['message'] = "Deleted Successifuly";
+            echo json_encode($response);
+            die();
+        } else {
+
+            $response['success'] = '0';
+            $response['message'] = "Sorry!! failed please try again";
+            echo json_encode($response);
+            die();
+        }
+    }
 
 }

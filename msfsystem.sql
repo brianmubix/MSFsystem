@@ -22,6 +22,9 @@ SET time_zone = "+00:00";
 -- Database: `msfsystem`
 --
 
+DROP DATABASE IF EXISTS `msfsystem`;
+CREATE DATABASE IF NOT EXISTS `msfsystem` /*!40100 DEFAULT CHARACTER SET latin1 */;
+USE `msfsystem`;
 
 -- --------------------------------------------------------
 
