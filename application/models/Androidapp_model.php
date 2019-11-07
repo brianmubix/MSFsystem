@@ -7,6 +7,11 @@
  */
 class Androidapp_model extends CI_Model {
 
+    function return_all_customerdetails() {
+
+        $query = $this->db->query("SELECT * FROM users WHERE `role` = 'customer' ORDER BY  user_id DESC ");
+        return $query->result_array();
+    }
     
 
     function return_userdetails($userid) {
@@ -118,6 +123,79 @@ class Androidapp_model extends CI_Model {
         $query = $this->db->query(" SELECT  ROUND (AVG(score),1)as avgscore, COUNT(*) as totalcount FROM ratings WHERE service_id = '".$serviceId."' ");
         return $query->result_array();
     }
+    
+    function return_serviceRatingData($serviceId){
+        $query = $this->db->query(" SELECT *, DATE_FORMAT(`datetime`, '%D %b %Y  %l:%i %p') AS formatteddate FROM ratings "
+                . "INNER JOIN services ON ratings.service_id = services.service_id INNER JOIN users ON ratings.userid = users.user_id "
+                . "WHERE ratings.service_id = '".$serviceId."' ORDER BY rating_id DESC ");
+        return $query->result_array();
+    }
+    
+    
+    
+    function insert_request($data) {
+        if ($this->db->insert('request', $data)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    function update_request($requestid, $data) {
+        $this->db->where('request_id', $requestid);
+        if ($this->db->update('request', $data)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    function return_customerRequest($customerId){
+        $query = $this->db->query(" SELECT *,request.status  AS requeststatus, DATE_FORMAT(create_at, '%D %b %Y, %l:%i %p') AS formatteddate FROM request "
+                . "INNER JOIN users ON customerid = user_id INNER JOIN services ON serviceid = service_id WHERE customerid= '".$customerId."' ORDER BY request_id DESC ");
+        return $query->result_array();
+    }
+    
+    function return_ownerRequest($ownerId){
+        $query = $this->db->query(" SELECT *,request.status  AS requeststatus, DATE_FORMAT(create_at, '%D %b %Y, %l:%i %p') AS formatteddate FROM request "
+                . "INNER JOIN users ON customerid = user_id INNER JOIN services ON serviceid = service_id WHERE owner_id= '".$ownerId."' ORDER BY request_id DESC ");
+        return $query->result_array();
+    }
+    
+    
+    
+    function return_requestdetails($requestId){
+        $query = $this->db->query(" SELECT *,request.status  AS requeststatus, request.description  AS requestdesciption, DATE_FORMAT(create_at, '%D %b %Y, %l:%i %p') AS formatteddate FROM request "
+                . "INNER JOIN users ON customerid = user_id INNER JOIN services ON serviceid = service_id WHERE request_id= '".$requestId."' ORDER BY request_id DESC ");
+        return $query->result_array();
+    }
+    
+    
+    
+    
+    function insert_rating($data) {
+        if ($this->db->insert('ratings', $data)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    function insert_updates($data) {
+        if ($this->db->insert('updates', $data)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    function return_requestupdatesdetails($requestId){
+        $query = $this->db->query("SELECT *, DATE_FORMAT(`datetime`, '%l:%i %p, %D %b %Y') AS formatteddate FROM updates "
+                . "INNER JOIN users ON userid = user_id WHERE requestid='".$requestId."' ");
+        return $query->result_array();
+    }
+    
+    
     
     
     

@@ -26,6 +26,7 @@ class Androidapp extends CI_Controller {
 
     public function NewOwner() {
 
+        $usertype = $this->input->post('usertype');
         $fistname = $this->input->post('firstname');
         $lastname = $this->input->post('lastname');
         $username = $this->input->post('username');
@@ -111,7 +112,16 @@ class Androidapp extends CI_Controller {
             die();
         }
 
+
+        //if usertype is customer
+        if ($usertype == "customer") {
+            $data['status'] = "approved";
+        }
+
+
+
         //array to insert into users 
+        $data['role'] = $usertype;
         $data['firstname'] = $fistname;
         $data['lastname'] = $lastname;
         $data['gender'] = $gender;
@@ -248,10 +258,13 @@ class Androidapp extends CI_Controller {
         $servicedata = $this->Androidapp_model->return_servicedata($serviceId);
         $serviceOffers = $this->Androidapp_model->return_serviceoffers($serviceId);
         $serviceRating = $this->Androidapp_model->return_serviceRating($serviceId);
+        $serviceRatingData = $this->Androidapp_model->return_serviceRatingData($serviceId);
 
         $response['servicedata'] = $servicedata;
         $response['serviceOffers'] = $serviceOffers;
         $response['serviceRating'] = $serviceRating;
+        $response['serviceRatingdata'] = $serviceRatingData;
+
         echo json_encode($response);
         die();
     }
@@ -293,6 +306,144 @@ class Androidapp extends CI_Controller {
 
             $response['success'] = '0';
             $response['message'] = "Sorry!! failed please try again";
+            echo json_encode($response);
+            die();
+        }
+    }
+
+    public function AllCustomers() {
+
+        $this->load->model("Androidapp_model");
+        $allcustomer = $this->Androidapp_model->return_all_customerdetails();
+
+        echo json_encode($allcustomer);
+        die();
+    }
+
+    public function NewRequest() {
+
+        $data['owner_id'] = $this->input->post('ownerid');
+        $data['serviceid'] = $this->input->post('station');
+        $data['customerid'] = $this->input->post('customer');
+        $data['description'] = $this->input->post('description');
+        $data['price'] = $this->input->post('price');
+
+        $this->load->model("Androidapp_model");
+        if ($this->Androidapp_model->insert_request($data)) {
+
+            $response['success'] = '1';
+            $response['message'] = "Saved Successifuly";
+            echo json_encode($response);
+            die();
+        } else {
+
+            $response['success'] = '0';
+            $response['message'] = "Sorry!! failed to save please try again";
+            echo json_encode($response);
+            die();
+        }
+    }
+
+    public function RequestDetails($requestId) {
+
+        $this->load->model("Androidapp_model");
+        $requestdetails['requestinfo'] = $this->Androidapp_model->return_requestdetails($requestId);
+        $requestdetails['requestinfo'][0]['updates'] = $this->Androidapp_model->return_requestupdatesdetails($requestdetails['requestinfo'][0]['request_id']);
+
+        echo json_encode($requestdetails['requestinfo']);
+        die();
+    }
+
+    public function AllCustomerRequests($customerId) {
+
+        $this->load->model("Androidapp_model");
+        $allcustomerrequest = $this->Androidapp_model->return_customerRequest($customerId);
+
+        echo json_encode($allcustomerrequest);
+        die();
+    }
+
+    public function AllOwnerRequests($ownerId) {
+
+        $this->load->model("Androidapp_model");
+        $allcustomerrequest = $this->Androidapp_model->return_ownerRequest($ownerId);
+
+        echo json_encode($allcustomerrequest);
+        die();
+    }
+
+    public function saveRating() {
+
+        $data['requestid'] = $this->input->post('requestid');
+        $data['service_id'] = $this->input->post('serviceid');
+        $data['userid'] = $this->input->post('userid');
+        $data['score'] = $this->input->post('score');
+        $data['reason'] = $this->input->post('ratemessage');
+
+
+        $this->load->model("Androidapp_model");
+        $data1['rated'] = "Yes";
+        if ($this->Androidapp_model->update_request($this->input->post('requestid'), $data1)) {
+            
+        }
+
+        $this->load->model("Androidapp_model");
+        if ($this->Androidapp_model->insert_rating($data)) {
+
+            $response['success'] = '1';
+            $response['message'] = "Saved Successifuly";
+            echo json_encode($response);
+            die();
+        } else {
+
+            $response['success'] = '0';
+            $response['message'] = "Sorry!! failed to save please try again";
+            echo json_encode($response);
+            die();
+        }
+    }
+
+    public function markRequestComplete($requestid) {
+
+        $this->load->model("Androidapp_model");
+        $data1['status'] = "Complete";
+
+        $this->load->model("Androidapp_model");
+        if ($this->Androidapp_model->update_request($requestid, $data1)) {
+
+            $response['success'] = '1';
+            $response['message'] = "Successifuly Maked Complete";
+            echo json_encode($response);
+            die();
+        } else {
+
+            $response['success'] = '0';
+            $response['message'] = "Sorry!! failed to save please try again";
+            echo json_encode($response);
+            die();
+        }
+    }
+
+    public function saveUpdate() {
+
+
+        $data['requestid'] = $this->input->post('requestid');
+        $data['userid'] = $this->input->post('userid');
+        $data['message'] = $this->input->post('message');
+
+
+
+        $this->load->model("Androidapp_model");
+        if ($this->Androidapp_model->insert_updates($data)) {
+
+            $response['success'] = '1';
+            $response['message'] = "Saved Successifuly";
+            echo json_encode($response);
+            die();
+        } else {
+
+            $response['success'] = '0';
+            $response['message'] = "Sorry!! failed to save please try again";
             echo json_encode($response);
             die();
         }
