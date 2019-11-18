@@ -195,9 +195,10 @@ class Androidapp extends CI_Controller {
     public function categoryServices() {
 
         $category = $this->input->post('category');
+        $sortorder = $this->input->post('filter');
 
         $this->load->model("Androidapp_model");
-        $userservices = $this->Androidapp_model->return_filtered_servicesdetails($category);
+        $userservices = $this->Androidapp_model->return_filtered_servicesdetails($category,$sortorder);
 
         echo json_encode($userservices);
         die();
