@@ -212,6 +212,7 @@ class Androidapp extends CI_Controller {
         $longitude = $this->input->post('longitude');
         $location = $this->input->post('location');
         $description = $this->input->post('description');
+        $licenseImage = $this->input->post('licenseImage');
 
 
         //check if service name exists
@@ -224,6 +225,15 @@ class Androidapp extends CI_Controller {
             die();
         } else {
 
+            //get licence image
+            $licensepath = dirname($_SERVER['SCRIPT_FILENAME'])  . "/assets/images/licenses/$stationname.jpg";
+            //delete if exists
+            if (file_exists($licensepath)) {
+                    unlink($licensepath);
+                }
+                
+            file_put_contents($licensepath, base64_decode($licenseImage));
+            
 
             //array to insert into services 
             $data['ownerid'] = $owner;
@@ -231,6 +241,7 @@ class Androidapp extends CI_Controller {
             $data['category'] = $category;
             $data['description'] = $description;
             $data['location'] = $location;
+            $data['license'] = date("YmdHis").".jpg";            
             $data['latitude'] = $latitude;
             $data['longtude'] = $longitude;
 

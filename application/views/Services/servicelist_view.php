@@ -120,7 +120,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     <td><?= $count ?></td> 
                                     <td>
 
-                                        <div class="row row-striped pt-0">
+                                        <div class="row row-striped py-0 ">
                                             <div class="col-2 bg-<?=$color; ?>">
                                                 
                                                 <h1 class="text-white text-center mt-3 mb-0" > <?=$icon; ?> </h1>
@@ -128,13 +128,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             </div>
                                             <div class="col-10">
                                                 <h5 class="text-uppercase"><strong><?= $value['name']; ?></strong></h5>
-                                                <ul class="list-inline">
+                                                <ul class="list-inline mb-0">
                                                     <li class="list-inline-item"><i class="fas fa-list-ul"></i> Category: <?= $value['category']; ?></li>
                                                     <li class="list-inline-item"><i class="fas fa-map-marked-alt" ></i> <?= $value['location']; ?></li>
-                                                </ul>
+                                                </ul> 
+                                                <hr class="mb-0" />
+                                                <b>Status: <?= $value['servicestatus']; ?></b>
+                                                <hr class="mt-0" />
                                                 <a href="<?= base_url();?>ServicesList/View/<?= $value['service_id'];?>" class="btn btn-sm btn-default btn-rounded "  ><i class="fa fa-eye"></i> View</a>
                                                 <a href="<?= base_url();?>ServicesList/Edit/<?= $value['service_id'];?>" class="btn btn-sm btn-info btn-rounded" ><i class="fa fa-edit"></i> Edit</a>
-                                                <button class="btn btn-sm btn-danger btn-rounded float-right" onclick="deleteservice(<?= $value['service_id'];?>)" ><i class="fa fa-trash"></i> Delete</buttonu>
+                                                <button class="btn btn-sm btn-danger btn-rounded float-right" onclick="deleteservice(<?= $value['service_id'];?>)" ><i class="fa fa-trash"></i> Delete</button>
 
                                             </div>
                                         </div>

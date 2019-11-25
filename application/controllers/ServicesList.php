@@ -21,14 +21,14 @@ class ServicesList extends CI_Controller {
 
     public function filteredServices() {
         $category = $this->input->post('category');
-        
-        $this->load->model('ServiceData_model');        
+
+        $this->load->model('ServiceData_model');
         $data['servicesDetailsArray'] = $this->ServiceData_model->return_filtered_servicesdetails($category);
-        
+
         if ($category == "All") {
             $data['servicesDetailsArray'] = $this->ServiceData_model->return_all_servicesdetails();
         }
-        
+
         $count = 0;
         foreach ($data['servicesDetailsArray'] as $key => $value) {
             $count++;
@@ -70,6 +70,9 @@ class ServicesList extends CI_Controller {
                                 <li class="list-inline-item"><i class="fas fa-list-ul"></i> Category: <?= $value['category']; ?></li>
                                 <li class="list-inline-item"><i class="fas fa-map-marked-alt" ></i> <?= $value['location']; ?></li>
                             </ul>
+                            <hr class="mb-0" />
+                            <b>Status: <?= $value['servicestatus']; ?></b>
+                            <hr class="mt-0" />
                             <a href="<?= base_url(); ?>ServicesList/View/<?= $value['service_id']; ?>" class="btn btn-sm btn-default btn-rounded "  ><i class="fa fa-eye"></i> View</a>
                             <a href="<?= base_url(); ?>ServicesList/Edit/<?= $value['service_id']; ?>" class="btn btn-sm btn-info btn-rounded" ><i class="fa fa-edit"></i> Edit</a>
                             <button class="btn btn-sm btn-danger btn-rounded float-right" onclick="deleteservice(<?= $value['service_id']; ?>)" ><i class="fa fa-trash"></i> Delete</buttonu>
@@ -80,9 +83,9 @@ class ServicesList extends CI_Controller {
             </tr>
 
 
-        <?php
+            <?php
         }
-        
+
         if ($count == 0) {
             echo '<tr><td></td><td>No Results Found</td></tr>';
         }
@@ -141,6 +144,51 @@ class ServicesList extends CI_Controller {
         $this->db->where('service_id', $id);
         $this->db->delete('services');
     }
+    
+    public function approveservice($serviceid) {
+
+        $data['servicestatus'] = "Approved";
+
+        $this->load->model("ServiceData_model");
+        if ($this->ServiceData_model->update_service($serviceid, $data)) {
+
+            $response['success'] = '1';
+            $response['message'] = "Approved Successifully";
+            echo json_encode($response);
+            die();
+        } else {
+
+            $response['success'] = '0';
+            $response['message'] = "Sorry!! Failed. please try again";
+            echo json_encode($response);
+            die();
+        }
+        
+    }
+    public function rejectservice($serviceid) {
+
+        $data['servicestatus'] = "Rejected";
+
+        $this->load->model("ServiceData_model");
+        if ($this->ServiceData_model->update_service($serviceid, $data)) {
+
+            $response['success'] = '1';
+            $response['message'] = "Approved Successifully";
+            echo json_encode($response);
+            die();
+        } else {
+
+            $response['success'] = '0';
+            $response['message'] = "Sorry!! Failed. please try again";
+            echo json_encode($response);
+            die();
+        }
+        
+    }
+    
+    
+    
+    
 
     public function Edit($serviceid) {
         if (!isset($_SESSION['msf_admin_id'])) {

@@ -101,14 +101,14 @@ class Androidapp_model extends CI_Model {
 
         $query = $this->db->query("SELECT *,"
                 . "(SELECT CONCAT(ROUND (IFNULL(AVG(score),0),1), '   (', COUNT(*),')') FROM ratings WHERE ratings.service_id = services.service_id ) AS rating "
-                . " FROM services LEFT JOIN users ON ownerid=user_id WHERE category = '" . $category . "'  ORDER BY  rating $order ");
+                . " FROM services LEFT JOIN users ON ownerid=user_id WHERE category = '" . $category . "' AND servicestatus ='Approved' ORDER BY  rating $order ");
         return $query->result_array();
     }
     
    function return_serviceforuser($userid) {
         $query = $this->db->query(" SELECT *,"
                 . "(SELECT CONCAT(ROUND (IFNULL(AVG(score),0),1), '   (', COUNT(*),')') FROM ratings WHERE ratings.service_id = services.service_id ) AS rating "
-                . " FROM services LEFT JOIN users ON ownerid=user_id WHERE user_id = '" . $userid . "' ORDER BY  service_id DESC  ");
+                . " FROM services LEFT JOIN users ON ownerid=user_id WHERE user_id = '" . $userid . "' AND servicestatus ='Approved' ORDER BY  service_id DESC  ");
         return $query->result_array();
     }
     

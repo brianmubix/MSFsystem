@@ -37,9 +37,101 @@ function deleteservice(id) {
             });
 }
 
+function approveservice(id) {
+
+
+    swal({
+        title: "Are you sure?",
+        text: "Approve this service?",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+    })
+            .then((willDelete) => {
+                if (willDelete) {
+
+                    var data = "";
+                    $.ajax({
+                        url: baseurl + "ServicesList/approveservice/" + id, // Url to which the request is send
+                        type: "POST", // Type of request to be send, called as method
+                        data: data, // Data sent to server, a set of key/value pairs (i.e. form fields and values)
+                        contentType: false, // The content type used when sending data to the server.
+                        cache: false, // To unable request pages to be cached
+                        processData: false, // To send DOMDocument or non processed data file it is set to false
+                        success: function (data)   // A function to be called if request succeeds.
+                        {
+                           
+                            var obj = JSON.parse(data);
+
+                            if (obj.success == "1") {
+                                swal("Approved", ""+obj.message, "success");
+                                window.location.reload();
+
+                            } else if (obj.success == "0") {
+                                swal("Failed!", "" + obj.message, "error");
+                                
+                            } else {
+                                swal("Failed!", "Unknown Error Ocurred" , "error");
+                            }
+
+                        }
+                    });
+                } else {
+                    //cancel
+                }
+            });
+}
+
+function rejectservice(id) {
+
+
+    swal({
+        title: "Are you sure?",
+        text: "Reject this service?",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+    })
+            .then((willDelete) => {
+                if (willDelete) {
+
+                    var data = "";
+                    $.ajax({
+                        url: baseurl + "ServicesList/rejectservice/" + id, // Url to which the request is send
+                        type: "POST", // Type of request to be send, called as method
+                        data: data, // Data sent to server, a set of key/value pairs (i.e. form fields and values)
+                        contentType: false, // The content type used when sending data to the server.
+                        cache: false, // To unable request pages to be cached
+                        processData: false, // To send DOMDocument or non processed data file it is set to false
+                        success: function (data)   // A function to be called if request succeeds.
+                        {
+                           
+
+                            var obj = JSON.parse(data);
+
+                            if (obj.success == "1") {
+                                swal("Rejected", ""+obj.message, "success");
+                                window.location.reload();
+
+                            } else if (obj.success == "0") {
+                                swal("Failed!", "" + obj.message, "error");
+                                
+                            } else {
+                                swal("Failed!", "Unknown Error Ocurred" , "error");
+                            }
+
+                        }
+                    });
+                } else {
+                    //cancel
+                }
+            });
+}
+
+
 function filterservice(category) {
-    var data = "category="+category;
-    
+    var data = "category=" + category;
+
     $.ajax({
         url: baseurl + "ServicesList/filteredServices", // Url to which the request is send
         type: "POST", // Type of request to be send, called as method
@@ -50,7 +142,7 @@ function filterservice(category) {
         success: function (data)   // A function to be called if request succeeds.
         {
             $("#servicelist").html(data);
-            $("#filterlabel").html( "Showing "+category + " Services");
+            $("#filterlabel").html("Showing " + category + " Services");
         }
     });
 

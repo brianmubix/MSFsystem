@@ -107,6 +107,28 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             <tr>
                                                 <td><b>Description</b></td><td><?= $value['description']?></td>
                                             </tr>
+                                            <tr>
+                                                <td><b>Verification Doc</b></td>
+                                                <td>
+                                                            <?php
+                                                            if($value['license'] == ""){
+                                                                echo "None Submited";
+                                                            } else {
+                                                                echo '<img class="img-fluid" style="max-width:200px;" src="'. base_url().'assets/images/licenses/'.$value['license'].'" />';
+                                                            }
+                                                            ?>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><b>Status</b></td>
+                                                <td>
+                                                    <?= $value['servicestatus']?><br/>
+                                                    <button class="btn btn-sm btn-success btn-rounded " onclick="approveservice(<?= $value['service_id'];?>)" ><i class="fa fa-check"></i> Approve </button>
+                                                    <button class="btn btn-sm btn-danger btn-rounded " onclick="rejectservice(<?= $value['service_id'];?>)" ><i class="fa fa-times"></i> Reject </button>
+                                                </td>
+                                            </tr>
+                                            
+                                            
                                         </tbody>
                                     </table>
                                     <b>Map Location</b>
@@ -179,12 +201,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
         <script src="<?= base_url() ?>assets/js/services.js?v<?= $this->config->item('code_version'); ?>"></script>
 
-        <script>
-            $(document).ready(function () {
-                $('#dtServices').DataTable();
-            });
-
-        </script>
+        
 
 
     </body>

@@ -29,7 +29,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <br />
 
                             <div class="row justify-content-md-around">
-                                <div class="col-6 card p-4">
+                                <div class="col-md-6 card p-4">
                                     <!-- Form -->
                                     <form class="text-center" style="color: #757575;" id="logindetails">
 
@@ -38,7 +38,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         <p class="card-text text-center">
                                             Please enter credentials to login 
                                         </p>
-                                        
+
                                         <!-- Email -->
                                         <div class="md-form">
                                             <input type="text" id="emailusername" name="emailusername" class="form-control" required>
@@ -92,9 +92,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
                             </div>
 
+                            <p class="text-center m-2">
+                                <a href="<?= base_url(); ?>/AndroidApp/msf.apk" >
+                                    <img class="img-fluid border-secondary" style="max-height: 100px; " src="<?= base_url(); ?>assets/images/System/appimage.jpg" />
+                                </a>
+                            </p>
+
 
                         </div>
                         <!--/.Card content-->
+
+
 
                     </div>
                     <!--/.Card-->
@@ -109,8 +117,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
         <!-- Default SCRIPTS -->
         <?php $this->load->view('templates/defaultfooterlinks'); ?>
-        
-        <script src="<?= base_url()?>assets/js/login.js?v<?= $this->config->item('code_version'); ?>"></script>
+
+        <script src="<?= base_url() ?>assets/js/login.js?v<?= $this->config->item('code_version'); ?>"></script>
 
     </body>
 </html>

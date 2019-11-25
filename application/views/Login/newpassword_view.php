@@ -29,7 +29,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <br />
 
                             <div class="row justify-content-md-around">
-                                <div class="col-6 card p-4">
+                                <div class="col-md-6 card p-4">
                                     <!-- Form -->
                                     <!-- Form -->
                                     <form class="text-center" style="color: #757575;" id="newpassdetails" >
