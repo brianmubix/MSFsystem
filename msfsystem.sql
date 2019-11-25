@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 13, 2019 at 04:05 PM
+-- Generation Time: Nov 25, 2019 at 09:47 AM
 -- Server version: 10.4.6-MariaDB
 -- PHP Version: 7.3.9
 
@@ -127,7 +127,8 @@ CREATE TABLE `services` (
   `location` varchar(200) NOT NULL,
   `latitude` decimal(10,5) NOT NULL,
   `longtude` decimal(10,5) NOT NULL,
-  `servicestatus` enum('pending','approved','rejected') NOT NULL DEFAULT 'pending',
+  `license` varchar(200) DEFAULT NULL,
+  `servicestatus` enum('Pending','Approved','Rejected') NOT NULL DEFAULT 'Pending',
   `createdat` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -135,17 +136,19 @@ CREATE TABLE `services` (
 -- Dumping data for table `services`
 --
 
-INSERT INTO `services` (`service_id`, `ownerid`, `name`, `category`, `description`, `location`, `latitude`, `longtude`, `servicestatus`, `createdat`) VALUES
-(1, 7, 'Total Petrol Station', 'Fuel Station', 'this is a petrol station', ' Opposite barden porwel', '0.00000', '36.00000', 'pending', '2019-09-20 05:54:50'),
-(3, 6, 'lake Car Dealers', 'Car Dealer', 'sells premium petrol', 'Opposite Naivas', '-0.06592', '37.02197', 'pending', '2019-09-21 08:56:40'),
-(4, 7, 'naivas car Wash', 'Car Wash', 'secure  spacious place', 'near neaivas market', '0.00000', '37.00000', 'pending', '2019-09-21 09:01:12'),
-(8, 6, 'Rest Garage', 'Garage Station', 'relax as we repair your car', 'Near chania bridge', '-0.52952', '37.35638', 'pending', '2019-09-21 13:17:25'),
-(9, 6, 'motorhub Kiambuu', 'Car Dealer', 'desagu will get you a new car', 'kiambu RD', '-0.39769', '36.96087', 'pending', '2019-09-21 13:18:54'),
-(10, 7, 'name', 'Car Park', 'Here is the description', 'location', '-0.39769', '36.96087', 'pending', '2019-09-25 02:18:53'),
-(11, 7, 'Central Garage', 'Garage Station', 'We repair all type of problems that your vehicle may have.', 'Next to nyeri County', '-0.39769', '36.96087', 'pending', '2019-09-25 07:48:44'),
-(12, 7, 'Oilcom', 'Fuel Station', 'Fuel', 'gatitu', '-0.39769', '36.96087', 'pending', '2019-09-25 09:03:53'),
-(13, 9, 'new', 'Car Wash', 'All wash', 'near shell', '-0.42160', '36.95407', 'pending', '2019-11-05 18:20:49'),
-(14, 6, 'silver lark', 'Car Park', 'Derived Derived from the research', 'eie', '-0.42030', '36.95234', 'pending', '2019-11-05 18:27:22');
+INSERT INTO `services` (`service_id`, `ownerid`, `name`, `category`, `description`, `location`, `latitude`, `longtude`, `license`, `servicestatus`, `createdat`) VALUES
+(1, 7, 'Total Petrol Station', 'Fuel Station', 'this is a petrol station', ' Opposite barden porwel', '0.00000', '36.00000', NULL, 'Approved', '2019-09-20 05:54:50'),
+(3, 6, 'lake Car Dealers', 'Car Dealer', 'sells premium petrol', 'Opposite Naivas', '-0.06592', '37.02197', NULL, 'Approved', '2019-09-21 08:56:40'),
+(4, 7, 'naivas car Wash', 'Car Wash', 'secure  spacious place', 'near neaivas market', '0.00000', '37.00000', NULL, 'Approved', '2019-09-21 09:01:12'),
+(8, 6, 'Rest Garage', 'Garage Station', 'relax as we repair your car', 'Near chania bridge', '-0.52952', '37.35638', NULL, 'Approved', '2019-09-21 13:17:25'),
+(9, 6, 'motorhub Kiambuu', 'Car Dealer', 'desagu will get you a new car', 'kiambu RD', '-0.39769', '36.96087', NULL, 'Approved', '2019-09-21 13:18:54'),
+(10, 7, 'name', 'Car Park', 'Here is the description', 'location', '-0.39769', '36.96087', NULL, 'Approved', '2019-09-25 02:18:53'),
+(11, 7, 'Central Garage', 'Garage Station', 'We repair all type of problems that your vehicle may have.', 'Next to nyeri County', '-0.39769', '36.96087', NULL, 'Approved', '2019-09-25 07:48:44'),
+(12, 7, 'Oilcom', 'Fuel Station', 'Fuel', 'gatitu', '-0.39769', '36.96087', NULL, 'Approved', '2019-09-25 09:03:53'),
+(13, 9, 'new', 'Car Wash', 'All wash', 'near shell', '-0.42160', '36.95407', NULL, 'Approved', '2019-11-05 18:20:49'),
+(14, 6, 'silver lark', 'Car Park', 'Derived Derived from the research', 'eie', '-0.42030', '36.95234', NULL, 'Approved', '2019-11-05 18:27:22'),
+(15, 6, 'hh', 'Car Park', 'Jjjj', 'hhh', '-0.41920', '36.95204', 'hh.jpg', 'Approved', '2019-11-23 09:42:28'),
+(16, 6, 'gh', 'Car Wash', 'ggg', 'fhh', '-0.42028', '36.95231', 'gh.jpg', 'Approved', '2019-11-23 11:22:38');
 
 -- --------------------------------------------------------
 
@@ -289,7 +292,7 @@ ALTER TABLE `request`
 -- AUTO_INCREMENT for table `services`
 --
 ALTER TABLE `services`
-  MODIFY `service_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `service_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `updates`
